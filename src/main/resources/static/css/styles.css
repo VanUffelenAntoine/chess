@@ -1,17 +1,52 @@
 html{
-    background: beige;
+    background: grey;
     font-family:Helvetica, "source sans pro", Arial, "Helvetics Neue", sans-serif;
     font-size: 16px;
+    margin: 0;
+    padding: 0;
 }
 body{
-    width: 1000px;
+    width: 60%;
     margin: 0 auto;
     text-align: center;
+    background: black;
+}
+header{
+    padding-top: 10px;
+    height: 35px;
 }
 main{
     background: floralwhite;
+    padding-top:1px;
+    padding-bottom: 1em;
+}
+footer{
+    position:absolute;
 }
 
 .button {
+    color: white;
+    align-items: center;
+    justify-content: center;
     text-decoration: none;
+    background: grey;
+    padding: 5px;
+}
+.navbutton{
+    align-items: center;
+    size: 150px;
+}
+.leftButton{
+    float:left;
+}
+.rightButton{
+    float: right;
+}
+.group:after {
+    content: "";
+    display: table;
+    clear: both;
+}
+.checkmark {
+    display: block;
 }
