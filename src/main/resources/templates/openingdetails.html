@@ -12,15 +12,17 @@
         <h2 th:text="${opening.getOpeningName()}">name</h2>
         <table>
             <tr>
-                <td>Move 1: </td>
+                <td>Move 1:</td>
                 <td th:text="${opening.getMove1()}">move1</td>
             </tr>
             <tr>
-                <td>Move 2: </td>
+                <td>Move 2:</td>
                 <td th:text="${opening.getMove2()}">move1</td>
             </tr>
             <tr></tr>
         </table>
+        <div><a class="button leftButton" th:href="@{|/openingdetails/${leftButton}|}">Previous</a></div>
+        <div><a class="button rightButton" th:href="@{|/openingdetails/${rightButton}|}">Next</a></div>
     </div>
     <div th:unless="${opening}">
         <p>No opening found</p>

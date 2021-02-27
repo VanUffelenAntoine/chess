@@ -17,10 +17,6 @@ public class Opening {
     public Opening() {
     }
 
-    public Opening(String openingName) {
-        this.openingName = openingName;
-    }
-
     public Opening(int id, String openingName, String move1, String move2, String type, boolean gambit, String linkMoreInfo) {
         this.id = id;
         this.openingName = openingName;

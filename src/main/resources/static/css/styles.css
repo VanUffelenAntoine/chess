@@ -1,0 +1,17 @@
+html{
+    background: beige;
+    font-family:Helvetica, "source sans pro", Arial, "Helvetics Neue", sans-serif;
+    font-size: 16px;
+}
+body{
+    width: 1000px;
+    margin: 0 auto;
+    text-align: center;
+}
+main{
+    background: floralwhite;
+}
+
+.button {
+    text-decoration: none;
+}

@@ -26,6 +26,8 @@ public class HomeController {
     @GetMapping({"/openingdetails","/openingdetails/{variable}"})
     public String openingDetails(Model model, @PathVariable int variable){
         model.addAttribute("opening",(openingRepository.findById(variable).isPresent()) ? openingRepository.findById(variable).get() : null);
+        model.addAttribute("leftButton",(variable != 1) ? variable-1 : openingRepository.count());
+        model.addAttribute("rightButton",(variable != openingRepository.count()) ? variable+1 : 1);
         return "openingdetails";
     }
 }
