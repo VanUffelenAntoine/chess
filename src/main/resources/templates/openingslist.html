@@ -1,10 +1,19 @@
-<!DOCTYPE html>
-<html lang="en">
+<!DOCTYPE html SYSTEM "http://www.thymeleaf.org/dtd/xhtml1-strict-thymeleaf-4.dtd">
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+<link rel="stylesheet" type="text/css" media="all" th:href="@{/css/styles.css}" href="../static/css/styles.css"/>
 <head>
     <meta charset="UTF-8">
-    <title>Title</title>
+    <title>Openings list</title>
 </head>
 <body>
-
+<div th:replace="header">header</div>
+<main>
+    <div class="list" th:if="">
+        <div th:each="opening:${openings}">
+            <h2><a class="button" th:text="${opening.getopeningName()}" th:href="@{/openingdetails/${opening.getId()}}"></a></h2>
+        </div>
+    </div>
+</main>
+<div th:replace="footer">footer</div>
 </body>
 </html>
