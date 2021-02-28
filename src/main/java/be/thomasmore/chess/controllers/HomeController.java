@@ -1,6 +1,7 @@
 package be.thomasmore.chess.controllers;
 
 import be.thomasmore.chess.model.Opening;
+import be.thomasmore.chess.model.Variant;
 import be.thomasmore.chess.repository.OpeningRepository;
 import be.thomasmore.chess.repository.VariantRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -31,6 +32,7 @@ public class HomeController {
         model.addAttribute("opening",(openingRepository.findById(variable).isPresent()) ? openingRepository.findById(variable).get() : null);
         model.addAttribute("leftButton",(variable != 1) ? variable-1 : openingRepository.count());
         model.addAttribute("rightButton",(variable != openingRepository.count()) ? variable+1 : 1);
+        model.addAttribute("variants", variantRepository.findByIdParentMove(variable));
         return "openingdetails";
     }
     @GetMapping({"/variantlist","/variantlist/{id}"})

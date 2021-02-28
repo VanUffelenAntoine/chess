@@ -37,7 +37,7 @@
             <td><a th:href="${opening.getLinkMoreInfo()}" th:text="${opening.getLinkMoreInfo()}">link</a></td>
             </tr>
         </table>
-        <div><a class="button" th:href="@{|/variantlist/${opening.getId()}|}">Variants</a></div>
+        <div th:replace="fragments/variantlistfragment :: variantlist">Variantlist</div>
     </div>
     <div th:unless="${opening}">
         <p>No opening found</p>
