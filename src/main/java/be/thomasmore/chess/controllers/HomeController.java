@@ -2,6 +2,7 @@ package be.thomasmore.chess.controllers;
 
 import be.thomasmore.chess.model.Opening;
 import be.thomasmore.chess.repository.OpeningRepository;
+import be.thomasmore.chess.repository.VariantRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -13,6 +14,8 @@ import org.springframework.web.bind.annotation.PathVariable;
 public class HomeController {
     @Autowired
     private OpeningRepository openingRepository;
+    @Autowired
+    private VariantRepository variantRepository;
     @GetMapping({"/", "/home"})
     public String home() {
         return "home";
@@ -30,4 +33,13 @@ public class HomeController {
         model.addAttribute("rightButton",(variable != openingRepository.count()) ? variable+1 : 1);
         return "openingdetails";
     }
+    @GetMapping({"/variantlist","/variantlist/{id}"})
+    public String variantList(Model model, @PathVariable int id){
+        if (variantRepository.findById(id).isPresent()) {
+            model.addAttribute("parentmove", openingRepository.findById(id).get());
+            model.addAttribute("variants", variantRepository.findByIdParentMove(id));
+        }
+        return "variantlist";
+    }
+
 }

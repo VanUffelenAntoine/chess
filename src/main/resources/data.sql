@@ -4,3 +4,4 @@ insert into OPENING(ID,OPENING_NAME,MOVE1,MOVE2,TYPE,GAMBIT,LINK_MORE_INFO)value
 insert into OPENING(ID,OPENING_NAME,MOVE1,MOVE2,TYPE,GAMBIT,LINK_MORE_INFO)values('4','Philidor Defense','e4 e5','Nf3 d6','Black',false,'https://en.wikipedia.org/wiki/Philidor_Defence')
 insert into OPENING(ID,OPENING_NAME,MOVE1,MOVE2,TYPE,GAMBIT,LINK_MORE_INFO)values('5','Sicilian Defence','e5 d5','c4','Black',false,'https://en.wikipedia.org/wiki/Sicilian_Defence')
 insert into OPENING(ID,OPENING_NAME,MOVE1,MOVE2,TYPE,GAMBIT,LINK_MORE_INFO)values('6','King''s indian defence','d4 Nf6','c4 g6','White',false,'https://en.wikipedia.org/wiki/King%27s_Indian_Defence')
+insert into VARIANT(ID,NAME,ID_PARENT_MOVE,MOVE)values(1,'Queen''s gambit Declined',1,'e6')
