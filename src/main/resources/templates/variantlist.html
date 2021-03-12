@@ -8,7 +8,9 @@
 <body>
 <div th:replace="fragments/header :: header">header</div>
 <main>
-<div th:replace="fragments/variantlistfragment :: variantlist">Variantlist</div>
+    <div class="list">
+        <div th:replace="fragments/variantlistfragment :: variantlist">Variantlist</div>
+    </div>
 </main>
 <div th:replace="fragments/footer :: footer">footer</div>
 </body>

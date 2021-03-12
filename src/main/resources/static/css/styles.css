@@ -1,40 +1,61 @@
 html{
-    background: grey;
+    background: #2B4162;
     font-family:Helvetica, "source sans pro", Arial, "Helvetics Neue", sans-serif;
-    font-size: 16px;
+    font-size: 20px;
     margin: 0;
     padding: 0;
+    line-height: 25px;
 }
 body{
-    width: 60%;
+    width: 90%;
     margin: 0 auto;
     text-align: center;
-    background: black;
+    background: #385F71;
 }
 header{
     padding-top: 10px;
-    height: 35px;
+    height: 70px;
+    overflow: auto;
 }
 main{
-    background: floralwhite;
+    background: #F5F0F6;
     padding-top:1px;
     padding-bottom: 1em;
 }
 footer{
     position:absolute;
 }
-
+nav{
+    margin-top: 20px;
+}
+ .content{
+     margin: 0 auto;
+     width: 450px;
+     display: flex;
+     flex-flow:column wrap;
+ }
+ .text{
+     text-align: left;
+ }
 .button {
-    color: white;
+    color: #F5F0F6;
     align-items: center;
     justify-content: center;
     text-decoration: none;
-    background: grey;
+    text-align: center;
+    background: #8F754F ;
     padding: 5px;
+}
+.button:hover{
+    color: #D9D4DA;
+    background: #D7B377;
 }
 .navbutton{
     align-items: center;
-    size: 150px;
+    width: 100px;
+}
+.leftButton,.rightButton{
+    width: 100px;
 }
 .leftButton{
     float:left;
@@ -46,6 +67,15 @@ footer{
     content: "";
     display: table;
     clear: both;
+}
+.listButton{
+    width: 200px;
+    margin: 10px;
+}
+.list{
+    margin-left: 0;
+    text-align: center;
+    align-content: center;
 }
 .checkmark {
     display: block;
