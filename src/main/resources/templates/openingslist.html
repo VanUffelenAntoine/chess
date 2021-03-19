@@ -8,8 +8,16 @@
 <body>
 <div th:replace="fragments/header :: header">header</div>
 <main>
-    <div class="list" th:if="${openings}">
-        <div th:each="opening:${openings}">
+    <div th:if="${openings}">
+        <div class="filters">
+            <form>
+                <label for="firstMove">First Move: </label>
+                <input type="text" id="firstMove" name="firstMove" value="">
+                <input type="submit" value="search" class="button">
+            </form>
+        </div>
+
+        <div th:each="opening:${openings}" class="list">
             <h2><a class="listButton button" th:text="${opening.getOpeningName()}" th:href="@{/openingdetails/{opening}(opening=${opening.getId()})}"></a></h2>
         </div>
     </div>

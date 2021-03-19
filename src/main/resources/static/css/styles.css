@@ -18,7 +18,7 @@ header{
     overflow: auto;
 }
 main{
-    background: #F5F0F6;
+    background: #c9cdd6;
     padding-top:1px;
     padding-bottom: 1em;
 }
@@ -28,13 +28,26 @@ footer{
 nav{
     margin-top: 20px;
 }
+img{
+    width:95%;
+}
+.container{
+    height:600px;
+    display: flex;
+    flex-flow:row;
+    align-items: center;
+    margin: 0 20%;
+}
  .content{
-     margin: 0 auto;
-     width: 450px;
+     width: 48%;
+     height: 500px;
      display: flex;
      flex-flow:column wrap;
+     flex: 0 1 auto;
+     padding: 5px;
  }
  .text{
+
      text-align: left;
  }
 .button {

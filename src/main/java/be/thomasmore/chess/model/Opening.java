@@ -4,7 +4,7 @@ import javax.persistence.Entity;
 import javax.persistence.Id;
 
 @Entity
-public class Opening {
+public class Opening{
     @Id
     int id;
     private String openingName;
@@ -13,7 +13,7 @@ public class Opening {
     private String type;
     private boolean gambit;
     private String linkMoreInfo;
-
+    private String linkPhoto;
     public Opening() {
     }
 
@@ -25,6 +25,17 @@ public class Opening {
         this.type = type;
         this.gambit = gambit;
         this.linkMoreInfo = linkMoreInfo;
+    }
+
+    public Opening(int id, String openingName, String move1, String move2, String type, boolean gambit, String linkMoreInfo, String linkPhoto) {
+        this.id = id;
+        this.openingName = openingName;
+        this.move1 = move1;
+        this.move2 = move2;
+        this.type = type;
+        this.gambit = gambit;
+        this.linkMoreInfo = linkMoreInfo;
+        this.linkPhoto = linkPhoto;
     }
 
     public int getId() {
@@ -81,5 +92,13 @@ public class Opening {
 
     public void setLinkMoreInfo(String linkMoreInfo) {
         this.linkMoreInfo = linkMoreInfo;
+    }
+
+    public String getLinkPhoto() {
+        return linkPhoto;
+    }
+
+    public void setLinkPhoto(String linkPhoto) {
+        this.linkPhoto = linkPhoto;
     }
 }

@@ -17,42 +17,26 @@ public class HomeController {
     private OpeningRepository openingRepository;
     @Autowired
     private VariantRepository variantRepository;
+
     @GetMapping({"/", "/home"})
     public String home() {
         return "home";
     }
-    @GetMapping ({"/openingslist"})
-    public String openingsList(Model model){
-        Iterable<Opening> openings = openingRepository.findAll();
-        model.addAttribute("openings",openings);
-        return "openingslist";
-    }
-    @GetMapping({"/openingdetails","/openingdetails/{variable}"})
-    public String openingDetails(Model model, @PathVariable int variable){
-        model.addAttribute("opening",(openingRepository.findById(variable).isPresent()) ? openingRepository.findById(variable).get() : null);
-        model.addAttribute("leftButton",(variable != 1) ? variable-1 : openingRepository.count());
-        model.addAttribute("rightButton",(variable != openingRepository.count()) ? variable+1 : 1);
-        model.addAttribute("variants", variantRepository.findByIdParentMove(variable));
-        return "openingdetails";
-    }
-    @GetMapping({"/variantlist","/variantlist/{id}"})
-    public String variantList(Model model, @PathVariable (required = false) Integer id){
-        if (id != null && variantRepository.findById(id).isPresent()) {
+
+    @GetMapping({"/variantlist", "/variantlist/{id}"})
+    public String variantList(Model model, @PathVariable(required = false) Integer id) {
+        if (id != null && variantRepository.findById(id).isPresent())
             model.addAttribute("parentmove", openingRepository.findById(id).get());
-            model.addAttribute("variants", variantRepository.findByIdParentMove(id));
-        } else {
-            Iterable<Variant> variants =variantRepository.findAll();
-            model.addAttribute("variants", variants);
-        }
+        Iterable<Variant> variants = variantRepository.findByParentIdQuery(id);
+        model.addAttribute("variants", variants);
         return "variantlist";
     }
 
-    @GetMapping({"/variantdetails","/variantdetails/{variable}"})
-    public String variantDetails(Model model, @PathVariable int variable){
-        model.addAttribute("variant",(variantRepository.findById(variable).isPresent()) ? variantRepository.findById(variable).get() : null);
-        model.addAttribute("leftButton",(variable != 1) ? variable-1 : variantRepository.count());
-        model.addAttribute("rightButton",(variable !=  variantRepository.count())? variable+1 : 1);
-        model.addAttribute("variants", variantRepository.findByIdParentMove(variable));
+    @GetMapping({"/variantdetails", "/variantdetails/{variable}"})
+    public String variantDetails(Model model, @PathVariable int variable) {
+        model.addAttribute("variant", (variantRepository.findById(variable).isPresent()) ? variantRepository.findById(variable).get() : null);
+        model.addAttribute("leftButton", (variable != 1) ? variable - 1 : variantRepository.count());
+        model.addAttribute("rightButton", (variable != variantRepository.count()) ? variable + 1 : 1);
         return "variantdetails";
     }
 }
