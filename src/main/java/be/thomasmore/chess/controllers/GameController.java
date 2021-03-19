@@ -13,8 +13,11 @@ public class GameController {
     GameRepository gameRepository;
     @GetMapping({"/gamedetails","/gamedetails/{id}"})
     public String gamedetails(Model model, @PathVariable(required = false) Integer id) {
-        if (id != null)
-        model.addAttribute("movesList", gameRepository.findById(id).get().getMovesAsArrayList());
+        if (id != null) {
+            model.addAttribute("movesList", gameRepository.findById(id).get().getMovesAsArrayList());
+            model.addAttribute("game", gameRepository.findById(id).get());
+            model.addAttribute("moveListPrintable", gameRepository.findById(id).get().getMoveList());
+        }
         return "gamedetails";
     }
 }

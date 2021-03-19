@@ -1,7 +1,8 @@
 <!DOCTYPE html SYSTEM "http://www.thymeleaf.org/dtd/xhtml1-strict-thymeleaf-4.dtd">
 <html lang="en" xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
 <link rel="stylesheet" type="text/css" media="all" th:href="@{/css/styles.css}" href="../static/css/styles.css"/>
-<link rel="stylesheet" type="text/css" media="all" th:href="@{/css/chessboard-1.0.0.css}" href="../static/css/chessboard-1.0.0.css"/>
+<link rel="stylesheet" type="text/css" media="all" th:href="@{/css/chessboard-1.0.0.css}"
+      href="../static/css/chessboard-1.0.0.css"/>
 <head>
     <meta charset="UTF-8">
     <title>Title</title>
@@ -9,14 +10,27 @@
 <body>
 <div th:replace="fragments/header :: header">header</div>
 <main>
-    <div class="container">
-    <div class="content">
-        <div id="myBoard" style="width: 400px"></div>
-    </div>
-        <div class="content">
-            <a class="button" id="prevButton"><</a>
-            <a class="button" id="nextButton">></a>
+    <div th:if="${game}">
+        <h2>
+            <th:block th:text="${game.getPlayer1().getName()}">Player1</th:block>
+            vs
+            <th:block th:text="${game.getPlayer2().getName()}">Player2</th:block>
+        </h2>
+        <div class="container">
+            <div class="content">
+                <div id="myBoard" style="width: 400px"></div>
+                <a class="button" id="prevButton"><</a>
+                <a class="button" id="nextButton">></a>
+            </div>
+            <div class="content">
+                <div th:each="move :${moveListPrintable}">
+                    <div class="move" th:text="${move}">move</div>
+                </div>
+            </div>
         </div>
+    </div>
+    <div th:unless="${game}">
+        <h2> No game found</h2>
     </div>
 </main>
 <div th:replace="fragments/footer :: footer">footer</div>
@@ -30,12 +44,12 @@
     let prevMove = /*[[${movesList}]]*/ [].length;
     let counterNext = -1;
     let movesjs = /*[[${movesList}]]*/ [];
-    $('#prevButton').on('click',function() {
+    $('#prevButton').on('click', function () {
         game.undo();
         board.position(game.fen());
         counterNext = --counterNext;
     })
-    $('#nextButton').on('click',function() {
+    $('#nextButton').on('click', function () {
         counterNext = ++counterNext;
         prevMove[counterNext] = board.position();
         game.move(movesjs[counterNext]);
