@@ -1,5 +1,5 @@
 html{
-    background: #2B4162;
+    background: url("../images/Concrete-Wallpaper-002.jpg");
     font-family:Helvetica, "source sans pro", Arial, "Helvetics Neue", sans-serif;
     font-size: 20px;
     margin: 0;
@@ -10,7 +10,7 @@ body{
     width: 90%;
     margin: 0 auto;
     text-align: center;
-    background: #385F71;
+    background: inherit;
 }
 header{
     padding-top: 1rem;
@@ -18,7 +18,7 @@ header{
     overflow: auto;
 }
 main{
-    background: #c9cdd6;
+    background: lightgrey;
     padding-top:1px;
     padding-bottom: 1em;
 }
@@ -36,7 +36,6 @@ img{
     display: flex;
     flex-flow:row;
     align-items: center;
-    margin: 0 20%;
 }
  .content{
      width: 48%;

@@ -28,12 +28,16 @@ public class OpeningController {
         return "openingslist";
     }
 
-    @GetMapping({"/openingdetails","/openingdetails/{variable}"})
-    public String openingDetails(Model model, @PathVariable int variable){
-        model.addAttribute("opening",(openingRepository.findById(variable).isPresent()) ? openingRepository.findById(variable).get() : null);
-        model.addAttribute("leftButton",(variable != 1) ? variable-1 : openingRepository.count());
-        model.addAttribute("rightButton",(variable != openingRepository.count()) ? variable+1 : 1);
-        model.addAttribute("variants", variantRepository.findByParentIdQuery(variable));
+    @GetMapping({"/openingdetails", "/openingdetails/{id}"})
+    public String openingDetails(Model model, @PathVariable int id){
+        if (openingRepository.findById(id).isPresent()) {
+            Opening opening = openingRepository.findById(id).get();
+            model.addAttribute("opening", opening);
+            model.addAttribute("movesList", opening.getMoveList());
+            model.addAttribute("leftButton",(id != 1) ? id -1 : openingRepository.count());
+            model.addAttribute("rightButton",(id != openingRepository.count()) ? id +1 : 1);
+            model.addAttribute("variants", openingRepository.findVariantsForOpening(opening));
+        }
         return "openingdetails";
     }
 }

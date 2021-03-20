@@ -23,20 +23,4 @@ public class HomeController {
         return "home";
     }
 
-    @GetMapping({"/variantlist", "/variantlist/{id}"})
-    public String variantList(Model model, @PathVariable(required = false) Integer id) {
-        if (id != null && variantRepository.findById(id).isPresent())
-            model.addAttribute("parentmove", openingRepository.findById(id).get());
-        Iterable<Variant> variants = variantRepository.findByParentIdQuery(id);
-        model.addAttribute("variants", variants);
-        return "variantlist";
-    }
-
-    @GetMapping({"/variantdetails", "/variantdetails/{variable}"})
-    public String variantDetails(Model model, @PathVariable int variable) {
-        model.addAttribute("variant", (variantRepository.findById(variable).isPresent()) ? variantRepository.findById(variable).get() : null);
-        model.addAttribute("leftButton", (variable != 1) ? variable - 1 : variantRepository.count());
-        model.addAttribute("rightButton", (variable != variantRepository.count()) ? variable + 1 : 1);
-        return "variantdetails";
-    }
 }

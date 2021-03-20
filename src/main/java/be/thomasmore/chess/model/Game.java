@@ -17,6 +17,10 @@ public class Game {
     private Player player2;
     @Column(length = 2500)
     private String moves;
+    @ManyToOne (fetch = FetchType.LAZY)
+    private Opening openingUsed;
+    @ManyToOne (fetch = FetchType.LAZY)
+    private Variant variantUsed;
 
     public Game(int id) {
         this.id = id;

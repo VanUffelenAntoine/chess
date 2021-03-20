@@ -23,6 +23,7 @@ public class Variant {
     }
 
 
+
     public int getId() {
         return id;
     }

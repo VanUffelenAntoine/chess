@@ -2,6 +2,10 @@ package be.thomasmore.chess.model;
 
 import javax.persistence.Entity;
 import javax.persistence.Id;
+import javax.persistence.OneToMany;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
 
 @Entity
 public class Opening{
@@ -14,6 +18,9 @@ public class Opening{
     private boolean gambit;
     private String linkMoreInfo;
     private String linkPhoto;
+    @OneToMany (mappedBy = "parentOpening")
+    List<Variant> variants;
+
     public Opening() {
     }
 
@@ -37,7 +44,13 @@ public class Opening{
         this.linkMoreInfo = linkMoreInfo;
         this.linkPhoto = linkPhoto;
     }
-
+    public ArrayList<String> getMoveList(){
+        ArrayList<String> moveList = new ArrayList<>();
+        moveList.addAll(Arrays.asList(move1.split(" ")));
+        if (move2 != null)
+        moveList.addAll(Arrays.asList(move2.split(" ")));
+        return moveList;
+    }
     public int getId() {
         return id;
     }
@@ -100,5 +113,13 @@ public class Opening{
 
     public void setLinkPhoto(String linkPhoto) {
         this.linkPhoto = linkPhoto;
+    }
+
+    public List<Variant> getVariants() {
+        return variants;
+    }
+
+    public void setVariants(List<Variant> variants) {
+        this.variants = variants;
     }
 }
