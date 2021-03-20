@@ -1,6 +1,7 @@
 <!DOCTYPE html SYSTEM "http://www.thymeleaf.org/dtd/xhtml1-strict-thymeleaf-4.dtd">
 <html lang="en" xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
 <link rel="stylesheet" type="text/css" media="all" th:href="@{/css/styles.css}" href="../../static/css/styles.css"/>
+<meta name="viewport" content="width=device-width,initial-scale=1">
 <head>
     <meta charset="UTF-8">
     <title>Variants</title>
@@ -12,7 +13,7 @@
     <h3>List of all available variants: </h3>
     <div th:unless="${#lists.size(variants)==0}">
         <div th:each="variant:${variants}">
-            <h2><a class="button" th:text="${variant.getName()}"
+            <h2><a class="button btn" style="width: 100%" th:text="${variant.getName()}"
                    th:href="@{/variantdetails/{variant}(variant=${variant.getId()})}"></a></h2>
         </div>
     </div>

@@ -15,7 +15,7 @@ public class Game {
     private Player player1;
     @ManyToOne(fetch = FetchType.LAZY)
     private Player player2;
-    @Column(length = 1000)
+    @Column(length = 2500)
     private String moves;
 
     public Game(int id) {
@@ -32,7 +32,7 @@ public class Game {
         ArrayList<String> moveList = new ArrayList<>();
         StringBuilder sb = new StringBuilder();
         int counter = 2;
-        for (String s : getMovesAsArrayList()){
+        for (String s : processAlgebraicNotation()){
             if (counter % 2 == 0){
                 sb.append(counter/2).append(". ").append(s);
             } else {
@@ -43,6 +43,17 @@ public class Game {
             counter++;
         }
         return moveList;
+    }
+    public ArrayList<String> processAlgebraicNotation(){
+        String s = " ";
+        String[] holding = this.moves.split("\\s*[0-9]+\\.\\s*");
+        ArrayList<String> listMoves = new ArrayList<>();
+
+        for (String move : holding){
+            listMoves.addAll(Arrays.asList(move.split(" ")));
+        }
+        listMoves.remove(0);
+        return listMoves;
     }
 
     public int getId() {

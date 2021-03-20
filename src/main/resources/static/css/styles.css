@@ -13,8 +13,8 @@ body{
     background: #385F71;
 }
 header{
-    padding-top: 10px;
-    height: 70px;
+    padding-top: 1rem;
+    padding-bottom: 1rem;
     overflow: auto;
 }
 main{
@@ -26,13 +26,13 @@ footer{
     position:absolute;
 }
 nav{
-    margin-top: 20px;
+    overflow: auto;
 }
 img{
     width:95%;
 }
 .container{
-    height:600px;
+    height:700px;
     display: flex;
     flex-flow:row;
     align-items: center;
@@ -40,7 +40,6 @@ img{
 }
  .content{
      width: 48%;
-     height: 500px;
      display: flex;
      flex-flow:column wrap;
      flex: 0 1 auto;
@@ -52,21 +51,13 @@ img{
  }
 .button {
     color: #F5F0F6;
-    align-items: center;
-    justify-content: center;
-    text-decoration: none;
-    text-align: center;
     background: #8F754F ;
-    padding: 5px;
 }
 .button:hover{
     color: #D9D4DA;
     background: #D7B377;
 }
-.navbutton{
-    align-items: center;
-    width: 100px;
-}
+
 .leftButton,.rightButton{
     width: 100px;
 }
@@ -86,6 +77,8 @@ img{
     margin: 10px;
 }
 .list{
+    display:flex;
+    flex-flow: column wrap;
     margin-left: 0;
     text-align: center;
     align-content: center;
@@ -95,4 +88,9 @@ img{
 }
 .subList{
 
+}
+.boardButtons{
+    flex-flow:row wrap;
+    justify-content: end;
+    text-align: left;
 }
