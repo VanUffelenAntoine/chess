@@ -34,7 +34,7 @@
                             <label for="type">Color: </label>
                         </div>
                         <div class="col">
-                            <select class="form-control" id="type" name="type" >
+                            <select class="form-control" id="type" name="type">
                                 <option>All</option>
                                 <option value="White">White</option>
                                 <option value="Black">Black</option>
@@ -56,10 +56,15 @@
                     </div>
                 </form>
             </div>
-            <div class="list col-8">
-                <div th:each="opening:${openings}">
-                    <h2><a class="listButton button btn" style="width: 100%" th:text="${opening.getOpeningName()}"
-                           th:href="@{/openingdetails/{opening}(opening=${opening.getId()})}"></a></h2>
+            <div class="list col-8 container-fluid" style="flex-flow: row wrap">
+                <div class="card" style="width: 18rem;" th:each="opening:${openings}">
+                    <img class="card-img-top" th:src="@{/images/{opening}(opening=${opening.getLinkPhoto()})}"
+                         alt="opening pic">
+                    <div class="card-body">
+                        <h5 class="card-title" th:text="${opening.getOpeningName()}">OpeningName</h5>
+                        <a th:href="@{/openingdetails/{opening}(opening=${opening.getId()})}" class="button btn">Go to
+                            Opening</a>
+                    </div>
                 </div>
             </div>
             <div class="col-2"></div>

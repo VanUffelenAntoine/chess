@@ -59,6 +59,7 @@ img{
 
 .leftButton,.rightButton{
     width: 100px;
+    border-radius: 25px;
 }
 .leftButton{
     float:left;
@@ -81,6 +82,7 @@ img{
     margin-left: 0;
     text-align: center;
     align-content: center;
+    justify-content: center;
 }
 .checkmark {
     display: block;

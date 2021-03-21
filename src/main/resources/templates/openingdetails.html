@@ -1,8 +1,9 @@
 <!DOCTYPE html SYSTEM "http://www.thymeleaf.org/dtd/xhtml1-strict-thymeleaf-4.dtd">
 <html lang="en" xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
-<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-BmbxuPwQa2lc/FVzBcNJ7UAyJxM6wuqIj61tLrc4wSX0szH/Ev+nYRRuWlolflfl" crossorigin="anonymous">
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta2/dist/css/bootstrap.min.css" rel="stylesheet"
+      integrity="sha384-BmbxuPwQa2lc/FVzBcNJ7UAyJxM6wuqIj61tLrc4wSX0szH/Ev+nYRRuWlolflfl" crossorigin="anonymous">
 <link rel="stylesheet" type="text/css" media="all" th:href="@{/css/styles.css}" href="../static/css/styles.css"/>
-<link rel="stylesheet" type="text/css" media="all" th:href="@{/css/chessboard-1.0.0.css}"
+<link rel="stylesheet" type="text/css" media="all" th:href="@{/css/chessboard-1.0.0.css}">
 <head>
     <meta charset="UTF-8">
     <title>Title</title>
@@ -12,45 +13,46 @@
 <main>
 
     <div th:if="${opening}">
-        <div><a class="button leftButton" th:href="@{|/openingdetails/${leftButton}|}">Previous</a></div>
-        <div><a class="button rightButton" th:href="@{|/openingdetails/${rightButton}|}">Next</a></div>
+        <div><a class="button btn leftButton" th:href="@{|/openingdetails/${leftButton}|}">Previous</a></div>
+        <div><a class="button btn rightButton" th:href="@{|/openingdetails/${rightButton}|}">Next</a></div>
         <h2 th:text="${opening.getOpeningName()}">name</h2>
         <div class="container">
-                <div class="content">
-                    <div id="myBoard" style="width:100%"></div>
-                </div>
-                <div class="content container-fluid" style="height: 90%;">
             <div class="content">
-                <div class="boardButtons">
-                    <a class="button btn btn-sm" id="prevButton"><</a>
-                    <a class="button btn btn-sm" id="nextButton">></a>
-                </div>
-                <div class="text"><span th:text="${opening.getType()}">color</span>: <span
-                        th:if="${opening.getType()} == 'White'">Attack</span><span
-                        th:if="${opening.getType()} == 'Black'">Defense</span>
-                </div>
-                <div class="text">
-                    Move 1:
-                    <span th:text="${opening.getMove1()}">move1</span>
-                </div>
-                <div class="text" th:unless="${opening.getMove2() == null}">
-                    Move 2:
-                    <span th:text="${opening.getMove2()}">move1</span>
-                </div>
-                <div class="text">
-                    <label for="gambit">Gambit: </label>
-                    <input type="checkbox" name="gambit" id="gambit" th:checked="${opening.isGambit()}">
-                </div>
-                <div class="text">
-                    More info:
-                    <a th:href="${opening.getLinkMoreInfo()}" th:text="${opening.getLinkMoreInfo()}">link</a>
+                <div id="myBoard" style="width:100%"></div>
+            </div>
+            <div class="content container-fluid" style="height: 90%;">
+                <div class="content">
+                    <div class="boardButtons">
+                        <a class="button btn btn-sm" id="prevButton"><</a>
+                        <a class="button btn btn-sm" id="nextButton">></a>
+                    </div>
+                    <div class="text"><span th:text="${opening.getType()}">color</span>: <span
+                            th:if="${opening.getType()} == 'White'">Attack</span><span
+                            th:if="${opening.getType()} == 'Black'">Defense</span>
+                    </div>
+                    <div class="text">
+                        Move 1:
+                        <span th:text="${opening.getMove1()}">move1</span>
+                    </div>
+                    <div class="text" th:unless="${opening.getMove2() == null}">
+                        Move 2:
+                        <span th:text="${opening.getMove2()}">move1</span>
+                    </div>
+                    <div class="text">
+                        <label for="gambit">Gambit: </label>
+                        <input type="checkbox" name="gambit" id="gambit" th:checked="${opening.isGambit()}">
+                    </div>
+                    <div class="text">
+                        More info:
+                        <a th:href="${opening.getLinkMoreInfo()}" th:text="${opening.getLinkMoreInfo()}">link</a>
+                    </div>
                 </div>
             </div>
-        </div>
         </div>
         <div class="list">
             <div th:replace="fragments/variantlistfragment :: variantlist">Variantlist</div>
         </div>
+    </div>
     <div class="content" th:unless="${opening}">
         <p>No opening found</p>
     </div>
