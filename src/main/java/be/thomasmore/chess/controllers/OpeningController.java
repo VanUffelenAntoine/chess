@@ -22,8 +22,10 @@ public class OpeningController {
 
     private Logger logger = LoggerFactory.getLogger(OpeningController.class);
     @GetMapping({"/openingslist"})
-    public String openingsList(Model model, @RequestParam(required = false) String firstMove){
-        Iterable<Opening> openings = openingRepository.findByFirstMoveQuery(firstMove);
+    public String openingsList(Model model, @RequestParam(required = false) String firstMove,
+                               @RequestParam(required = false) String type,
+                               @RequestParam (required = false) Boolean gambitCheck){
+        Iterable<Opening> openings = openingRepository.findByFilter(firstMove,type,gambitCheck);
         model.addAttribute("openings",openings);
         return "openingslist";
     }
