@@ -57,7 +57,7 @@
                 </form>
             </div>
             <div class="list col-8 container-fluid" style="flex-flow: row wrap">
-                <div class="card" style="width: 18rem;" th:each="opening:${openings}">
+                <div class="card m-1" style="width: 40%;" th:each="opening:${openings}">
                     <img class="card-img-top" th:src="@{/images/{opening}(opening=${opening.getLinkPhoto()})}"
                          alt="opening pic">
                     <div class="card-body">
