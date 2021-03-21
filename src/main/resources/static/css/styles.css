@@ -95,3 +95,7 @@ img{
     justify-content: end;
     text-align: left;
 }
+.form-check-input:checked{
+    background: black;
+    border-color: black;
+}
