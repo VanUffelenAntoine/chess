@@ -11,17 +11,27 @@
 <body>
 <div th:replace="fragments/header :: header">header</div>
 <main>
-    <div class="list">
-        <div th:each="opening:${openings}">
-            <div th:unless="${opening.getVariants().size() == 0}">
-            <h2 th:text="${opening.getOpeningName()}"></h2>
-            <div th:each="variant:${opening.getVariants()}">
-                <h2><a class="listButton button btn" style="width: 100%" th:text="${variant.getName()}"
-                       th:href="@{/variantdetails/{variant}(variant=${variant.getId()})}"></a></h2>
-            </div>
+    <div class="list container-fluid">
+        <div class="row-background row container-fluid" th:each="opening:${openings}" th:object="${opening}"
+             th:unless="${opening.variants.size() == 0}">
+            <h2 th:text="*{openingName}"></h2>
+            <div class="row row-cols-1 row-cols-md-2 row-cols-xl-4 g3 justify-content-center">
+                <div th:each="variant:*{variants}" class="col mb-3">
+                    <div class="card h-100 m-auto">
+                        <img class="card-img-top" th:src="@{/images/{opening}(opening=${opening.linkPhoto})}"
+                             alt="opening pic">
+                        <div class="card-body">
+                            <p class="card-title" th:text="${variant.name}">Name</p>
+                            <a th:href="@{/variantdetails/{variant}(variant=${variant.id})}" class="button btn">Go
+                                to
+                                Variant</a>
+                        </div>
+                    </div>
+                </div>
             </div>
         </div>
     </div>
+
 </main>
 <div th:replace="fragments/footer :: footer">footer</div>
 </body>

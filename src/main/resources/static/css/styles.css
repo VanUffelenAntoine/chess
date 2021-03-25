@@ -7,8 +7,6 @@ html{
     line-height: 25px;
 }
 body{
-    width: 90%;
-    margin: 0 auto;
     text-align: center;
     background: inherit;
 }
@@ -18,9 +16,12 @@ header{
     overflow: auto;
 }
 main{
+}
+.row-background{
     background: lightgrey;
-    padding-top:1px;
     border-radius: 25px;
+    margin:10px auto;
+    width: 90%;
 }
 footer{
     position:absolute;
@@ -72,10 +73,7 @@ img{
     display: table;
     clear: both;
 }
-.listButton{
-    width: 200px;
-    margin: 10px;
-}
+
 .list{
     display:flex;
     flex-flow: column wrap;
@@ -90,12 +88,17 @@ img{
 .subList{
 
 }
-.boardButtons{
-    flex-flow:row wrap;
-    justify-content: end;
-    text-align: left;
-}
 .form-check-input:checked{
     background: black;
     border-color: black;
+}
+.inline-form{
+    display: inline-block;
+    width: auto;
+}
+.form-check-input{
+    vertical-align: inherit;
+}
+.card{
+    max-width: 400px;
 }

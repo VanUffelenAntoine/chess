@@ -13,51 +13,38 @@
 <div th:replace="fragments/header :: header">header</div>
 <main>
     <div class="container-fluid" th:if="${openings}">
-        <div class="row">
-            <div class="filters col-2">
-                <div class="row g-3">
-                    <div class="col">
-                        <h3 style="text-align: left">Filters: </h3>
-                    </div>
-                </div>
-                <form style="text-align: left">
-                    <div class="row g-3 align-items-center">
-                        <div class="col">
-                            <label for="firstMove" class="col-form-label">First Move: </label>
-                        </div>
-                        <div class="col">
-                            <input type="text" class="form-control" id="firstMove" name="firstMove" value="">
-                        </div>
-                    </div>
-                    <div class="row g-3 align-items-center">
-                        <div class="col">
-                            <label for="type">Color: </label>
-                        </div>
-                        <div class="col">
-                            <select class="form-control" id="type" name="type">
-                                <option>All</option>
-                                <option value="White">White</option>
-                                <option value="Black">Black</option>
-                            </select>
-                        </div>
-                    </div>
-                    <div class="row g-3 align-items-center">
-                        <div class="col">
-                            <label class="form-check-label" for="gambitCheck">Gambit</label>
-                        </div>
-                        <div class="col">
-                            <input class="form-check-input" type="checkbox" id="gambitCheck" name="gambitCheck">
-                        </div>
-                    </div>
-                    <div class="row align-items-center">
-                        <div class="col"></div>
-                        <input type="submit" value="search" class="button btn-sm">
-
-                    </div>
-                </form>
+        <form class="row-background row g-3 mb-3 mt-1 justify-content-center">
+            <div class="col-auto">
+                <h3>Filters: </h3>
             </div>
-            <div class="list col-8 container-fluid" style="flex-flow: row wrap">
-                <div class="card m-1" style="width: 40%;" th:each="opening:${openings}">
+            <div class="col-auto">
+                <label for="firstMove" class="">First Move: </label>
+                <input type="text" class="form-control form-control-sm inline-form" id="firstMove" name="firstMove"
+                       value="">
+            </div>
+            <div class="col-auto">
+                <label for="type">Color: </label>
+                <select class="form-select form-select-sm inline-form" id="type" name="type">
+                    <option>All</option>
+                    <option value="White">White</option>
+                    <option value="Black">Black</option>
+                </select>
+            </div>
+            <div class="col-auto">
+                <label class="" for="gambitCheck">Gambit: </label>
+                <select class="form-select form-select-sm inline-form" id="gambitCheck" name="gambitCheck">
+                    <option th:value="null">All</option>
+                    <option value="true">Yes</option>
+                    <option value="false">No</option>
+                </select>
+            </div>
+            <div class="col-auto mb-3">
+                <input type="submit" value="search" class="button btn-sm">
+            </div>
+        </form>
+        <div class="row-background row row-cols-1 row-cols-md-2 row-cols-xl-3 g-3 justify-content-center">
+            <div th:each="opening:${openings}" class="col mb-3">
+                <div class="card h-100 m-auto">
                     <img class="card-img-top" th:src="@{/images/{opening}(opening=${opening.getLinkPhoto()})}"
                          alt="opening pic">
                     <div class="card-body">
@@ -67,7 +54,6 @@
                     </div>
                 </div>
             </div>
-            <div class="col-2"></div>
         </div>
     </div>
 </main>
