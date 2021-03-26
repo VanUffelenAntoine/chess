@@ -3,6 +3,7 @@ package be.thomasmore.chess.controllers;
 import be.thomasmore.chess.model.Game;
 import be.thomasmore.chess.model.Opening;
 import be.thomasmore.chess.model.Player;
+import be.thomasmore.chess.model.Variant;
 import be.thomasmore.chess.repository.GameRepository;
 import be.thomasmore.chess.repository.OpeningRepository;
 import be.thomasmore.chess.repository.PlayerRepository;
@@ -12,6 +13,9 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
+import java.lang.reflect.Array;
+import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 @Controller
@@ -54,8 +58,7 @@ public class AdminController {
     @PostMapping("newgamepgn")
     public String newGamePgnPost(Model model,
                                  @RequestParam String pgn) {
-        Game game = MakeNewGameFromPng(pgn);
-        gameRepository.save(game);
+        gameRepository.save(setOpeningAndVariant(MakeNewGameFromPng(pgn)));
         model.addAttribute("gameList", gameRepository.findAll());
         return "gamelist";
     }
@@ -70,8 +73,8 @@ public class AdminController {
         return playerRepository.findAll();
     }
 
-    public String[] processPgn(String pgn){
-        pgn = pgn.replaceAll("\\r|\\n"," ");
+    public String[] processPgn(String pgn) {
+        pgn = pgn.replaceAll("\\r|\\n", " ");
         String[] allInfo = pgn.split("\\[|\\]");
         return allInfo;
     }
@@ -107,4 +110,30 @@ public class AdminController {
         return player;
     }
 
+    public Game setOpeningAndVariant(Game game) {
+        ArrayList<String> moves = game.processAlgebraicNotation();
+        ArrayList<String> openingMoves = new ArrayList<>();
+        for (Opening o : openingRepository.findAll()) {
+            openingMoves.clear();
+            openingMoves.addAll(Arrays.asList(((o.getMove1() != null ? o.getMove1() : "") + " " + (o.getMove2() != null ? o.getMove2() : "")).split(" ")));
+            int i = 0;
+            int isSame = 0;
+            while (i < openingMoves.size() - 1) {
+                if (openingMoves.get(i).equals(moves.get(i)))
+                    isSame++;
+                i++;
+            }
+            if (isSame == i) {
+                game.setOpeningUsed(o);
+                for (Variant v : game.getOpeningUsed().getVariants()) {
+                    if (moves.get(i + 1).equals(v.getMove())) {
+                        game.setVariantUsed(v);
+                        break;
+                    }
+                }
+                break;
+            }
+        }
+        return game;
+    }
 }

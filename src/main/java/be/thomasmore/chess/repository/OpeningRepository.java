@@ -19,4 +19,5 @@ public interface OpeningRepository extends CrudRepository<Opening, Integer> {
 
     @Query("select v from Variant v where ?1 is null or v.parentOpening = ?1")
     List<Variant> findVariantsForOpening(Opening opening);
+
 }

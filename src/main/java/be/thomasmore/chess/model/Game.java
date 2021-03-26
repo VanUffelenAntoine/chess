@@ -96,4 +96,20 @@ public class Game {
     public void setPlayer2(Player player2) {
         this.player2 = player2;
     }
+
+    public Opening getOpeningUsed() {
+        return openingUsed;
+    }
+
+    public void setOpeningUsed(Opening openingUsed) {
+        this.openingUsed = openingUsed;
+    }
+
+    public Variant getVariantUsed() {
+        return variantUsed;
+    }
+
+    public void setVariantUsed(Variant variantUsed) {
+        this.variantUsed = variantUsed;
+    }
 }

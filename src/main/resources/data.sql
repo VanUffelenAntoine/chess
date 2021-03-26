@@ -38,6 +38,8 @@ insert into VARIANT(ID, NAME, parent_opening_id, MOVE)
 values (11, 'Symmetrical Defence', 7, 'c5');
 insert into VARIANT(ID, NAME, parent_opening_id, MOVE)
 values (12, 'Reversed Sicilian', 7, 'e5');
+insert into VARIANT(ID, NAME, parent_opening_id, MOVE)
+values (13, 'Open Sicilian', 5, 'Nf3');
 insert into PLAYER(ID,NAME,RATING,DESCRIPTION)
 values(nextval('player_seq'),'Hikaru Nakamura',2816,'Hikaru Nakamura (born December 9, 1987) is an American chess player, Twitch livestreamer, and content creator. A chess prodigy, he became the youngest American to earn the title of Grandmaster, aged 15 years and 79 days, which has since been broken by Samuel Sevian aged 13 years and 10 months. Nakamura is a five-time United States champion.[1] He won the 2011 edition of Tata Steel Chess Tournament Group A and represented the United States at five Chess Olympiads, winning a team gold medal and two team bronze medals.');
 insert into PLAYER(id,name,rating,description)

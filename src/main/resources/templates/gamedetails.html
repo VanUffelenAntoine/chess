@@ -14,11 +14,16 @@
 <div th:replace="fragments/header :: header(game)">header</div>
 <main class="container-fluid">
     <div th:if="${game}">
-        <h2 class="row row-background g-3 justify-content-center">
-            <th:block th:text="${game.getPlayer1().getName()}">Player1</th:block>
-            vs
-            <th:block th:text="${game.getPlayer2().getName()}">Player2</th:block>
-        </h2>
+        <div class="row row-background g-3 justify-content-center">
+            <h2>
+                <th:block th:text="${game.getPlayer1().getName()}">Player1</th:block>
+                vs
+                <th:block th:text="${game.getPlayer2().getName()}">Player2</th:block>
+            </h2>
+            <h5 class="mt-0">
+                <span th:if="${game.openingUsed != null}" th:text="${game.openingUsed.openingName}"></span> : <span
+                    th:if="${game.variantUsed != null}" th:text="${game.variantUsed.name}"></span></h5>
+        </div>
         <div class="row row-background row-cols-1 row-cols-xl-2 g-3">
             <div class="col container-fluid">
                 <div class="row">
@@ -35,9 +40,9 @@
             </div>
             <div class="col container-fluid">
                 <div class="row-background row row-cols-2 row-cols-md-4 g-2 mb-3">
-                <div class="moveList col" th:each="move :${moveListPrintable}">
-                    <div class="move text" th:text="${move}">move</div>
-                </div>
+                    <div class="moveList col" th:each="move :${moveListPrintable}">
+                        <div class="move text" th:text="${move}">move</div>
+                    </div>
                 </div>
             </div>
         </div>
@@ -65,7 +70,7 @@
         }
     })
     $('#nextButton').on('click', function () {
-        if (counterNext < movesjs.length-1) {
+        if (counterNext < movesjs.length - 1) {
             counterNext = ++counterNext;
             console.log(movesjs[counterNext]);
             game.move(movesjs[counterNext]);
