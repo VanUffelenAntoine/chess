@@ -10,11 +10,6 @@ body{
     text-align: center;
     background: inherit;
 }
-header{
-    padding-top: 1rem;
-    padding-bottom: 1rem;
-    overflow: auto;
-}
 main{
 }
 .row-background{
@@ -31,12 +26,6 @@ nav{
 }
 img{
     width:95%;
-}
-.container{
-    height:700px;
-    display: flex;
-    flex-flow:row;
-    align-items: center;
 }
  .content{
      width: 48%;
@@ -85,7 +74,7 @@ img{
 .checkmark {
     display: block;
 }
-.subList{
+.active{
 
 }
 .form-check-input:checked{
@@ -101,4 +90,8 @@ img{
 }
 .card{
     max-width: 400px;
+}
+.carousel-control-next,
+.carousel-control-prev /*, .carousel-indicators */ {
+    filter: invert(100%);
 }

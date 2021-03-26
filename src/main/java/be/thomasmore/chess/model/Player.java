@@ -6,6 +6,8 @@ import java.util.List;
 
 @Entity
 public class Player {
+    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "player_generator")
+    @SequenceGenerator(name = "player_generator",sequenceName = "player_seq",allocationSize = 1)
     @Id
     private int id;
     private String name;
@@ -14,6 +16,14 @@ public class Player {
     private String description;
 
     public Player() {
+    }
+
+    public Player(int id) {
+        this.id = id;
+    }
+
+    public Player(String name) {
+        this.name = name;
     }
 
     public int getId() {

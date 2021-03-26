@@ -1,25 +1,31 @@
 package be.thomasmore.chess.model;
 
+import com.sun.istack.NotNull;
+
 import javax.persistence.*;
 import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.HashMap;
-import java.util.List;
+
 
 @Entity
 public class Game {
+    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "game_generator")
+    @SequenceGenerator(name = "game_generator",sequenceName = "game_seq",allocationSize = 1)
     @Id
     int id;
+    @NotNull
     @ManyToOne(fetch = FetchType.LAZY)
     private Player player1;
+    @NotNull
     @ManyToOne(fetch = FetchType.LAZY)
     private Player player2;
+    @NotNull
     @Column(length = 2500)
     private String moves;
-    @ManyToOne (fetch = FetchType.LAZY)
+    @ManyToOne(fetch = FetchType.LAZY)
     private Opening openingUsed;
-    @ManyToOne (fetch = FetchType.LAZY)
+    @ManyToOne(fetch = FetchType.LAZY)
     private Variant variantUsed;
 
     public Game(int id) {
@@ -28,17 +34,19 @@ public class Game {
 
     public Game() {
     }
-    public ArrayList<String> getMovesAsArrayList(){
+
+    public ArrayList<String> getMovesAsArrayList() {
         ArrayList<String> moves = new ArrayList<>(Arrays.asList(this.moves.split(",")));
         return moves;
     }
-    public ArrayList<String> getMoveList(){
+
+    public ArrayList<String> getMoveList() {
         ArrayList<String> moveList = new ArrayList<>();
         StringBuilder sb = new StringBuilder();
         int counter = 2;
-        for (String s : processAlgebraicNotation()){
-            if (counter % 2 == 0){
-                sb.append(counter/2).append(". ").append(s);
+        for (String s : processAlgebraicNotation()) {
+            if (counter % 2 == 0) {
+                sb.append(counter / 2).append(". ").append(s);
             } else {
                 sb.append(" ").append(s);
                 moveList.add(sb.toString());
@@ -48,12 +56,13 @@ public class Game {
         }
         return moveList;
     }
-    public ArrayList<String> processAlgebraicNotation(){
-        String s = " ";
+
+    public ArrayList<String> processAlgebraicNotation() {
+        this.moves = this.moves.replaceAll("\\r|\\n"," ");
         String[] holding = this.moves.split("\\s*[0-9]+\\.\\s*");
         ArrayList<String> listMoves = new ArrayList<>();
 
-        for (String move : holding){
+        for (String move : holding) {
             listMoves.addAll(Arrays.asList(move.split(" ")));
         }
         listMoves.remove(0);

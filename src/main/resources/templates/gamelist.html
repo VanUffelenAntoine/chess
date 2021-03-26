@@ -10,9 +10,10 @@
     <title>Game list</title>
 </head>
 <body>
-<div th:replace="fragments/header :: header">header</div>
+<div th:replace="fragments/header :: header(game)">header</div>
 <main>
     <div th:if="${gameList}" class="container-fluid">
+
         <form class="row row-background g-3 mb-3 mt-1 justify-content-center">
             <div class="col-auto">
                 <label for="opening">Opening: </label>
@@ -20,10 +21,13 @@
             <div class="col-auto">
                 <input type="text" id="opening" name="opening" value="">
             </div>
-            <div class="col-auto mb-3">
+            <div class="col-auto mb-3 offset-mb-3">
                 <input type="submit" value="search" class="button">
             </div>
         </form>
+        <div class="row row-background">
+            <a class="button btn rightButton " th:href="@{/create/newgame}">new</a>
+        </div>
         <div class="row row-background row-cols-1 row-cols-xl-2 g-3 p-2">
             <div class="col m-auto" th:each="game:${gameList}" th:object="${game}">
                 <h2><a class="listButton button btn" style="width: 100%"
