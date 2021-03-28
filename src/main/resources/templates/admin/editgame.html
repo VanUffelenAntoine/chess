@@ -1,0 +1,42 @@
+<!DOCTYPE html SYSTEM "http://www.thymeleaf.org/dtd/xhtml1-strict-thymeleaf-4.dtd">
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta2/dist/css/bootstrap.min.css" rel="stylesheet"
+          integrity="sha384-BmbxuPwQa2lc/FVzBcNJ7UAyJxM6wuqIj61tLrc4wSX0szH/Ev+nYRRuWlolflfl" crossorigin="anonymous">
+    <link rel="stylesheet" type="text/css" media="all" th:href="@{/css/styles.css}" href="../../static/css/styles.css"/>
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <meta charset="UTF-8">
+    <title>Edit Game</title>
+</head>
+<body>
+<a class="button btn rightButton " th:href="@{/gamelist}">cancel</a>
+<main class="container-fluid">
+    <div class="row row-background mb-3">
+        <form action="#" th:action="@{|/edit/game|}" method="post">
+            <label class="form-label" for="gameSelect">Select a game: </label>
+            <select class="form-select" id="gameSelect" th:name="chosenGameId">
+                <option th:each="gameOption:${gameList}" th:value="${gameOption.id}" th:selected="${gameOption.id == game.id}" th:text="${gameOption.player1.name+' vs '+gameOption.player2.name}"></option>
+            </select>
+            <input type="submit" value="Select" class="button btn-sm">
+        </form>
+        <div class="row">
+        <form th:if="${gameChosen}" action="#" th:action="@{|/edit/game/${game.id}|}" th:object="${game}" method="post">
+            <label class="form-label" for="player1Id">Player 1: </label>
+            <select class="form-select" id="player1Id" name="player1Id">
+                <option th:each="player:${players}" th:value="${player.id}" th:text="${player.name}" th:selected="${game.player1.id == player.id}"></option>
+            </select>
+            <label class="form-label" for="player2Id">Player 2: </label>
+            <select class="form-select" id="player2Id" name="player2Id">
+                <option th:each="player:${players}" th:value="${player.id}" th:text="${player.name}" th:selected="${game.player2.id == player.id}"></option>
+            </select>
+            <label for="moves" class="form-label">Moves: </label>
+            <textarea class="form-control" id="moves" th:field="*{moves}" th:text="*{moves}" rows="10"></textarea>
+
+            <input type="submit" value="save" class="button btn-sm">
+        </form>
+        </div>
+    </div>
+
+</main>
+</body>
+</html>

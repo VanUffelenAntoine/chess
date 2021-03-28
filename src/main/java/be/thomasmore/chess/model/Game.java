@@ -11,7 +11,7 @@ import java.util.Arrays;
 @Entity
 public class Game {
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "game_generator")
-    @SequenceGenerator(name = "game_generator",sequenceName = "game_seq",allocationSize = 1)
+    @SequenceGenerator(name = "game_generator", sequenceName = "game_seq", allocationSize = 1)
     @Id
     int id;
     @NotNull
@@ -54,11 +54,14 @@ public class Game {
             }
             counter++;
         }
+        if (!sb.isEmpty())
+            moveList.add(sb.toString());
+
         return moveList;
     }
 
     public ArrayList<String> processAlgebraicNotation() {
-        this.moves = this.moves.replaceAll("\\r|\\n"," ");
+        this.moves = this.moves.replaceAll("\\r|\\n", " ");
         String[] holding = this.moves.split("\\s*[0-9]+\\.\\s*");
         ArrayList<String> listMoves = new ArrayList<>();
 

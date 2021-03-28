@@ -1,19 +1,19 @@
 insert into OPENING(ID, OPENING_NAME, MOVE1, MOVE2, TYPE, GAMBIT, LINK_MORE_INFO, link_photo)
-values (1, 'Queen''s Gambit', 'd4 d5', 'c4', 'White', true, 'https://en.wikipedia.org/wiki/Queen%27s_Gambit','QueensGambit.png');
+values (nextval('opening_seq'), 'Queen''s Gambit', 'd4 d5', 'c4', 'White', true, 'https://en.wikipedia.org/wiki/Queen%27s_Gambit','QueensGambit.png');
 insert into OPENING(ID, OPENING_NAME, MOVE1, MOVE2, TYPE, GAMBIT, LINK_MORE_INFO,link_photo)
-values (2, 'Bishop''s opening', 'e4 e5', 'Bc4', 'White', false, 'https://en.wikipedia.org/wiki/Bishop%27s_Opening','BishopsOpening.png');
+values (nextval('opening_seq'), 'Bishop''s opening', 'e4 e5', 'Bc4', 'White', false, 'https://en.wikipedia.org/wiki/Bishop%27s_Opening','BishopsOpening.png');
 insert into OPENING(ID, OPENING_NAME, MOVE1, MOVE2, TYPE, GAMBIT, LINK_MORE_INFO,link_photo)
-values (3, 'Vienna Game', 'e4 e5', 'Nc3', 'White', false, 'https://en.wikipedia.org/wiki/Vienna_Game','ViennaGame.png');
+values (nextval('opening_seq'), 'Vienna Game', 'e4 e5', 'Nc3', 'White', false, 'https://en.wikipedia.org/wiki/Vienna_Game','ViennaGame.png');
 insert into OPENING(ID, OPENING_NAME, MOVE1, MOVE2, TYPE, GAMBIT, LINK_MORE_INFO,link_photo)
-values (4, 'Philidor Defense', 'e4 e5', 'Nf3 d6', 'Black', false, 'https://en.wikipedia.org/wiki/Philidor_Defence','PhilidorDefense.png');
+values (nextval('opening_seq'), 'Philidor Defense', 'e4 e5', 'Nf3 d6', 'Black', false, 'https://en.wikipedia.org/wiki/Philidor_Defence','PhilidorDefense.png');
 insert into OPENING(ID, OPENING_NAME, MOVE1, TYPE, GAMBIT, LINK_MORE_INFO,link_photo)
-values (5, 'Sicilian Defence', 'e4 c5','Black', false, 'https://en.wikipedia.org/wiki/Sicilian_Defence','SicilianDefence.png');
+values (nextval('opening_seq'), 'Sicilian Defence', 'e4 c5','Black', false, 'https://en.wikipedia.org/wiki/Sicilian_Defence','SicilianDefence.png');
 insert into OPENING(ID, OPENING_NAME, MOVE1, MOVE2, TYPE, GAMBIT, LINK_MORE_INFO,link_photo)
-values (6, 'King''s indian defence', 'd4 Nf6', 'c4 g6', 'Black', false, 'https://en.wikipedia.org/wiki/King%27s_Indian_Defence','KingsIndianDefence.png');
+values (nextval('opening_seq'), 'King''s indian defence', 'd4 Nf6', 'c4 g6', 'Black', false, 'https://en.wikipedia.org/wiki/King%27s_Indian_Defence','KingsIndianDefence.png');
 insert into OPENING(ID, OPENING_NAME, MOVE1,TYPE, GAMBIT, LINK_MORE_INFO,link_photo)
-values (7, 'English Opening', 'c4', 'White', false, 'https://en.wikipedia.org/wiki/English_Opening','EnglishOpening.png');
+values (nextval('opening_seq'), 'English Opening', 'c4', 'White', false, 'https://en.wikipedia.org/wiki/English_Opening','EnglishOpening.png');
 insert into OPENING(ID, OPENING_NAME, MOVE1,MOVE2,TYPE, GAMBIT, LINK_MORE_INFO,link_photo)
-values (8, 'Ruy Lopez', 'e4 e5','Nf3 Nc6', 'White', false, 'https://en.wikipedia.org/wiki/Ruy_Lopez','RuyLopez.png');
+values (nextval('opening_seq'), 'Ruy Lopez', 'e4 e5','Nf3 Nc6', 'White', false, 'https://en.wikipedia.org/wiki/Ruy_Lopez','RuyLopez.png');
 insert into VARIANT(ID, NAME, parent_opening_id, MOVE)
 values (1, 'Queen''s gambit Declined', 1, 'e6');
 insert into VARIANT(ID, NAME, parent_opening_id, MOVE)

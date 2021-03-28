@@ -17,9 +17,11 @@ import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
+import java.util.Optional;
 
 @Controller
-@RequestMapping("create")
+@RequestMapping({"/create", "/edit"})
+
 public class AdminController {
     @Autowired
     GameRepository gameRepository;
@@ -30,9 +32,34 @@ public class AdminController {
     @Autowired
     VariantRepository variantRepository;
 
+    @ModelAttribute("gameList")
+    public Iterable<Game> findGames() {
+        return gameRepository.findAll();
+    }
+
+    @ModelAttribute("player")
+    public Player findPlayer(@PathVariable(required = false) Integer playerId){
+        if (playerId == null)
+            return new Player();
+        Optional<Player> player = playerRepository.findById(playerId);
+        return player.isPresent()? player.get() : null;
+    }
+
+    @ModelAttribute("game")
+    public Game findGame(@PathVariable(required = false) Integer gameId) {
+        if (gameId == null)
+            return new Game();
+        Optional<Game> game = gameRepository.findById(gameId);
+        return game.isPresent() ? game.get() : null;
+    }
+
+    @ModelAttribute("players")
+    public Iterable<Player> findPlayers() {
+        return playerRepository.findAll();
+    }
+
     @GetMapping("/newgame")
     public String newGame(Model model) {
-        model.addAttribute("game", new Game());
         return "admin/newgame";
     }
 
@@ -49,28 +76,59 @@ public class AdminController {
         return "gamelist";
     }
 
-    @GetMapping("newgamepgn")
+    @GetMapping("/newgamepgn")
     public String newGamePgn(Model model) {
-        model.addAttribute("game", new Game());
         return "admin/newpgn";
     }
 
-    @PostMapping("newgamepgn")
+    @PostMapping("/newgamepgn")
     public String newGamePgnPost(Model model,
                                  @RequestParam String pgn) {
-        gameRepository.save(setOpeningAndVariant(MakeNewGameFromPng(pgn)));
+        Game game = setOpeningAndVariant(MakeNewGameFromPng(pgn));
+        gameRepository.save(game);
         model.addAttribute("gameList", gameRepository.findAll());
+        return "redirect:/gamedetails/" + game.getId();
+    }
+
+    @GetMapping({"/game", "/game/{gameId}"})
+    public String editGame(Model model,
+                           @PathVariable(required = false) Integer gameId) {
+        model.addAttribute("gameChosen", gameId != null);
+        return "admin/editgame";
+    }
+
+    @PostMapping({"/game/{gameId}", "/game"})
+    public String choseGame(Model model,
+                            @RequestParam(required = false) Integer chosenGameId,
+                            @PathVariable(required = false) Integer gameId,
+                            @ModelAttribute("game") Game game,
+                            @RequestParam(required = false) Integer player1Id,
+                            @RequestParam(required = false) Integer player2Id) {
+        if (chosenGameId != null)
+            return "redirect:/edit/game/" + chosenGameId;
+
+        game.setPlayer1(new Player(player1Id));
+        game.setPlayer2(new Player(player2Id));
+        gameRepository.save(game);
+        return "redirect:/gamedetails/" + gameId;
+    }
+
+    @GetMapping({"/player", "/player/{playerId}"})
+    public String editPlayer(Model model,
+                             @PathVariable(required = false) Integer playerId) {
+        model.addAttribute("playerChosen", playerId != null);
+        return "admin/editplayer";
+    }
+
+    @PostMapping({"/player/{playerId}", "/player"})
+    public String chosePlayer(Model model,
+                            @RequestParam(required = false) Integer chosenPlayerId,
+                            @PathVariable(required = false) Integer playerId,
+                            @ModelAttribute("player") Player player){
+        if (chosenPlayerId != null)
+            return "redirect:/edit/player/" + chosenPlayerId;
+        playerRepository.save(player);
         return "gamelist";
-    }
-
-    @ModelAttribute("gameList")
-    public Iterable<Game> findGames() {
-        return gameRepository.findAll();
-    }
-
-    @ModelAttribute("players")
-    public Iterable<Player> findPlayers() {
-        return playerRepository.findAll();
     }
 
     public String[] processPgn(String pgn) {
@@ -123,7 +181,7 @@ public class AdminController {
                     isSame++;
                 i++;
             }
-            if (isSame == i) {
+            if (isSame == openingMoves.size()) {
                 game.setOpeningUsed(o);
                 for (Variant v : game.getOpeningUsed().getVariants()) {
                     if (moves.get(i + 1).equals(v.getMove())) {

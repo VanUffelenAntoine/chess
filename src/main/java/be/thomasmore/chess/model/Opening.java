@@ -1,14 +1,14 @@
 package be.thomasmore.chess.model;
 
-import javax.persistence.Entity;
-import javax.persistence.Id;
-import javax.persistence.OneToMany;
+import javax.persistence.*;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
 @Entity
 public class Opening{
+    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "opening_generator")
+    @SequenceGenerator(name = "opening_generator",sequenceName = "opening_seq",allocationSize = 1)
     @Id
     int id;
     private String openingName;
@@ -22,6 +22,10 @@ public class Opening{
     List<Variant> variants;
 
     public Opening() {
+    }
+
+    public Opening(int id) {
+        this.id = id;
     }
 
     public Opening(int id, String openingName, String move1, String move2, String type, boolean gambit, String linkMoreInfo) {

@@ -1,10 +1,8 @@
 html{
     background: url("../images/Concrete-Wallpaper-002.jpg");
     font-family:Helvetica, "source sans pro", Arial, "Helvetics Neue", sans-serif;
-    font-size: 20px;
     margin: 0;
     padding: 0;
-    line-height: 25px;
 }
 body{
     text-align: center;
@@ -21,19 +19,6 @@ main{
 footer{
     position:absolute;
 }
-nav{
-    overflow: auto;
-}
-img{
-    width:95%;
-}
- .content{
-     width: 48%;
-     display: flex;
-     flex-flow:column wrap;
-     flex: 0 1 auto;
-     padding: 5px;
- }
  .text{
 
      text-align: left;
@@ -57,16 +42,10 @@ img{
 .rightButton{
     float: right;
 }
-.group:after {
-    content: "";
-    display: table;
-    clear: both;
-}
 
 .list{
     display:flex;
     flex-flow: column wrap;
-    margin-left: 0;
     text-align: center;
     align-content: center;
     justify-content: center;

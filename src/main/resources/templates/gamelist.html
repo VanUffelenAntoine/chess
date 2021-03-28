@@ -1,10 +1,9 @@
 <!DOCTYPE html SYSTEM "http://www.thymeleaf.org/dtd/xhtml1-strict-thymeleaf-4.dtd">
 <html lang="en" xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
-<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta2/dist/css/bootstrap.min.css" rel="stylesheet"
-      integrity="sha384-BmbxuPwQa2lc/FVzBcNJ7UAyJxM6wuqIj61tLrc4wSX0szH/Ev+nYRRuWlolflfl" crossorigin="anonymous">
-<link rel="stylesheet" type="text/css" media="all" th:href="@{/css/styles.css}" href="../static/css/styles.css"/>
-
 <head>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta2/dist/css/bootstrap.min.css" rel="stylesheet"
+          integrity="sha384-BmbxuPwQa2lc/FVzBcNJ7UAyJxM6wuqIj61tLrc4wSX0szH/Ev+nYRRuWlolflfl" crossorigin="anonymous">
+    <link rel="stylesheet" type="text/css" media="all" th:href="@{/css/styles.css}" href="../static/css/styles.css"/>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width,initial-scale=1">
     <title>Game list</title>
@@ -13,7 +12,6 @@
 <div th:replace="fragments/header :: header(game)">header</div>
 <main>
     <div th:if="${gameList}" class="container-fluid">
-
         <form class="row row-background g-3 mb-3 mt-1 justify-content-center">
             <div class="col-auto">
                 <label for="opening">Opening: </label>
@@ -25,12 +23,9 @@
                 <input type="submit" value="search" class="button">
             </div>
         </form>
-        <div class="row row-background">
-            <a class="button btn rightButton " th:href="@{/create/newgame}">new</a>
-        </div>
         <div class="row row-background row-cols-1 row-cols-xl-2 g-3 p-2">
             <div class="col m-auto" th:each="game:${gameList}" th:object="${game}">
-                <h2><a class="listButton button btn" style="width: 100%"
+                <h2><a class="listButton button btn w-100"
                        th:href="@{/gamedetails/{game}(game=*{id})}"><span
                         th:text="*{player1.name}">player1</span> vs <span
                         th:text="*{player2.name}">player 2</span></a></h2>
@@ -39,5 +34,11 @@
     </div>
 </main>
 <div th:replace="fragments/footer :: footer">footer</div>
+<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.1/dist/umd/popper.min.js"
+        integrity="sha384-SR1sx49pcuLnqZUnnPwx6FCym0wLsk5JZuNx2bPPENzswTNFaQU1RDvt3wT4gWFG"
+        crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta3/dist/js/bootstrap.min.js"
+        integrity="sha384-j0CNLUeiqtyaRmlzUHCPZ+Gy5fQu0dQ6eZ/xAww941Ai1SxSY+0EQqNXNE6DZiVc"
+        crossorigin="anonymous"></script>
 </body>
 </html>

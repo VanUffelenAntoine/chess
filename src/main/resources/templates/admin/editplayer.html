@@ -1,0 +1,40 @@
+<!DOCTYPE html SYSTEM "http://www.thymeleaf.org/dtd/xhtml1-strict-thymeleaf-4.dtd">
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta2/dist/css/bootstrap.min.css" rel="stylesheet"
+          integrity="sha384-BmbxuPwQa2lc/FVzBcNJ7UAyJxM6wuqIj61tLrc4wSX0szH/Ev+nYRRuWlolflfl" crossorigin="anonymous">
+    <link rel="stylesheet" type="text/css" media="all" th:href="@{/css/styles.css}" href="../../static/css/styles.css"/>
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <meta charset="UTF-8">
+    <title>Edit Player</title>
+</head>
+<body>
+<a class="button btn rightButton " th:href="@{/home}">cancel</a>
+<main class="container-fluid">
+    <div class="row row-background mb-3">
+        <form action="#" th:action="@{|/edit/player|}" method="post">
+            <label class="form-label" for="gameSelect">Select a game: </label>
+            <select class="form-select" id="gameSelect" th:name="chosenPlayerId">
+                <option th:each="playerOption:${players}" th:value="${playerOption.id}" th:selected="${playerOption.id == player.id}" th:text="${playerOption.name}"></option>
+            </select>
+            <input type="submit" value="Select" class="button btn-sm">
+        </form>
+        <div class="row">
+            <form th:if="${playerChosen}" action="#" th:action="@{|/edit/player/${player.id}|}" th:object="${player}" method="post">
+                <label for="playerName" class="">Name: </label>
+                <input type="text" class="form-control" id="playerName" th:field="*{name}"
+                       th:value="*{name}">
+                <label for="playerRating" class="">Name: </label>
+                <input type="text" class="form-control" id="playerRating" th:field="*{rating}"
+                       th:value="*{rating}">
+                <label for="playerDescription" class="form-label">Description </label>
+                <textarea class="form-control" id="playerDescription" th:field="*{description}" th:text="*{description}" rows="5"></textarea>
+
+                <input type="submit" value="Select" class="button btn-sm">
+            </form>
+        </div>
+    </div>
+
+</main>
+</body>
+</html>

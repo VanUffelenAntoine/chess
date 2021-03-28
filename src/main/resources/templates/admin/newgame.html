@@ -6,11 +6,10 @@
     <link rel="stylesheet" type="text/css" media="all" th:href="@{/css/styles.css}" href="../../static/css/styles.css"/>
     <meta name="viewport" content="width=device-width,initial-scale=1">
     <meta charset="UTF-8">
-    <title>Title</title>
+    <title>New Game</title>
 </head>
 <body>
 <a class="button btn rightButton " th:href="@{/gamelist}">cancel</a>
-<a class="button btn rightButton " th:href="@{/create/newgamepgn}">Pgn</a>
 <main class="container-fluid">
     <div class="row row-background">
         <form action="#" th:action="@{|/create/newgame|}" th:object="${game}" method="post">

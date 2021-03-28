@@ -17,6 +17,9 @@ public interface OpeningRepository extends CrudRepository<Opening, Integer> {
 
     Opening findByOpeningName(String openingName);
 
+    @Query(value = "SELECT opening_seq.nextval FROM dual", nativeQuery = true)
+    Integer getNextOpeningId();
+
     @Query("select v from Variant v where ?1 is null or v.parentOpening = ?1")
     List<Variant> findVariantsForOpening(Opening opening);
 
