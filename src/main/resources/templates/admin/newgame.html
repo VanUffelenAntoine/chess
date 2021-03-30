@@ -13,6 +13,7 @@
 <main class="container-fluid">
     <div class="row row-background">
         <form action="#" th:action="@{|/create/newgame|}" th:object="${game}" method="post">
+            <div th:if="${#fields.hasErrors('*')}" class="alert alert-danger" role="alert">Data is not saved</div>
             <label class="form-label" for="player1">Player 1: </label>
             <select class="form-select" id="player1" name="player1">
                 <option th:each="player:${players}" th:value="${player.id}" th:text="${player.name}"></option>
@@ -22,7 +23,7 @@
                 <option th:each="player:${players}" th:value="${player.id}" th:text="${player.name}"></option>
             </select>
             <label for="moves" class="form-label">Moves: </label>
-            <textarea class="form-control" id="moves" th:field="*{moves}"></textarea>
+            <textarea class="form-control" id="moves" th:field="*{moves}" th:errorclass="alert-danger"></textarea>
 
             <input type="submit" value="create" class="button btn-sm" th:href="@{/gamelist}">
         </form>

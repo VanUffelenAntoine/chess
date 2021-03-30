@@ -11,8 +11,10 @@ import be.thomasmore.chess.repository.VariantRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 
+import javax.validation.Valid;
 import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -38,12 +40,15 @@ public class AdminController {
     }
 
     @ModelAttribute("player")
-    public Player findPlayer(@PathVariable(required = false) Integer playerId){
+    public Player findPlayer(@PathVariable(required = false) Integer playerId) {
         if (playerId == null)
             return new Player();
         Optional<Player> player = playerRepository.findById(playerId);
-        return player.isPresent()? player.get() : null;
+        return player.isPresent() ? player.get() : null;
     }
+
+    @ModelAttribute("openings")
+    public Iterable<Opening> findOpenings(){return openingRepository.findAll();}
 
     @ModelAttribute("game")
     public Game findGame(@PathVariable(required = false) Integer gameId) {
@@ -65,15 +70,21 @@ public class AdminController {
 
     @PostMapping("/newgame")
     public String newGamePost(Model model,
-                              @ModelAttribute("game") Game game,
+                              @Valid @ModelAttribute("game") Game game,
+                              BindingResult bindingResult,
                               @RequestParam Integer player1,
                               @RequestParam Integer player2,
                               @ModelAttribute("gameList") Iterable<Game> games) {
+
+        if (bindingResult.hasErrors()) {
+            return "admin/newgame";
+        }
+
         game.setPlayer1(new Player(player1));
-        game.setPlayer1(new Player(player2));
+        game.setPlayer2(new Player(player2));
         gameRepository.save(game);
         model.addAttribute("gameList", gameRepository.findAll());
-        return "gamelist";
+        return "redirect:/gamedetails/" + game.getId();
     }
 
     @GetMapping("/newgamepgn")
@@ -101,14 +112,23 @@ public class AdminController {
     public String choseGame(Model model,
                             @RequestParam(required = false) Integer chosenGameId,
                             @PathVariable(required = false) Integer gameId,
-                            @ModelAttribute("game") Game game,
+                            @Valid @ModelAttribute("game") Game game,
+                            BindingResult bindingResult,
                             @RequestParam(required = false) Integer player1Id,
-                            @RequestParam(required = false) Integer player2Id) {
+                            @RequestParam(required = false) Integer player2Id,
+                            @RequestParam(required = false) Integer openingId) {
         if (chosenGameId != null)
             return "redirect:/edit/game/" + chosenGameId;
 
+        if (bindingResult.hasErrors()) {
+            model.addAttribute("gameChosen", gameId != null);
+            return "admin/editgame";
+        }
+
         game.setPlayer1(new Player(player1Id));
         game.setPlayer2(new Player(player2Id));
+        if (openingId != null)
+        game.setOpeningUsed(new Opening(openingId));
         gameRepository.save(game);
         return "redirect:/gamedetails/" + gameId;
     }
@@ -120,13 +140,20 @@ public class AdminController {
         return "admin/editplayer";
     }
 
-    @PostMapping({"/player/{playerId}", "/player"})
+    @PostMapping({"/player", "/player/{playerId}"})
     public String chosePlayer(Model model,
-                            @RequestParam(required = false) Integer chosenPlayerId,
-                            @PathVariable(required = false) Integer playerId,
-                            @ModelAttribute("player") Player player){
+                              @RequestParam(required = false) Integer chosenPlayerId,
+                              @PathVariable(required = false) Integer playerId,
+                              @Valid @ModelAttribute("player") Player player,
+                              BindingResult bindingResult) {
         if (chosenPlayerId != null)
             return "redirect:/edit/player/" + chosenPlayerId;
+
+        if (bindingResult.hasErrors()) {
+            model.addAttribute("playerChosen", playerId != null);
+            return "admin/editplayer";
+        }
+
         playerRepository.save(player);
         return "gamelist";
     }
@@ -158,7 +185,19 @@ public class AdminController {
                 }
             }
         }
-        game.setMoves(allInfo[allInfo.length - 1]);
+        for (String info : allInfo) {
+            if (info.contains("WhiteElo") && !info.replaceAll("\s|BlackElo|\"", "").equals("")) {
+                String eloPlayer1 = info.replaceAll("\s|WhiteElo|\"", "");
+                if (game.getPlayer1().getRating() == null && !eloPlayer1.equals(""))
+                    game.getPlayer1().setRating(Integer.parseInt(eloPlayer1));
+            }
+            if (info.contains("BlackElo") && !info.replaceAll("\s|BlackElo|\"", "").equals("")) {
+                String eloPlayer2 = info.replaceAll("\s|BlackElo|\"", "");
+                if (game.getPlayer1().getRating() == null && !eloPlayer2.equals(""))
+                    game.getPlayer2().setRating(Integer.parseInt(eloPlayer2));
+            }
+        }
+        game.setMoves(allInfo[allInfo.length - 1].replaceAll("[0-9][^\s][0-9]-*[0-9]*[^\s]*[0-9]*",""));
         return game;
     }
 
@@ -176,7 +215,7 @@ public class AdminController {
             openingMoves.addAll(Arrays.asList(((o.getMove1() != null ? o.getMove1() : "") + " " + (o.getMove2() != null ? o.getMove2() : "")).split(" ")));
             int i = 0;
             int isSame = 0;
-            while (i < openingMoves.size() - 1) {
+            while (i < openingMoves.size()) {
                 if (openingMoves.get(i).equals(moves.get(i)))
                     isSame++;
                 i++;
@@ -184,7 +223,7 @@ public class AdminController {
             if (isSame == openingMoves.size()) {
                 game.setOpeningUsed(o);
                 for (Variant v : game.getOpeningUsed().getVariants()) {
-                    if (moves.get(i + 1).equals(v.getMove())) {
+                    if (moves.get(i).equals(v.getMove())) {
                         game.setVariantUsed(v);
                         break;
                     }

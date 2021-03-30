@@ -13,22 +13,27 @@
 <main class="container-fluid">
     <div class="row row-background mb-3">
         <form action="#" th:action="@{|/edit/player|}" method="post">
-            <label class="form-label" for="gameSelect">Select a game: </label>
+            <label class="form-label" for="gameSelect">Select a player: </label>
             <select class="form-select" id="gameSelect" th:name="chosenPlayerId">
-                <option th:each="playerOption:${players}" th:value="${playerOption.id}" th:selected="${playerOption.id == player.id}" th:text="${playerOption.name}"></option>
+                <option th:each="playerOption:${players}" th:value="${playerOption.id}"
+                        th:selected="${playerOption.id == player.id}" th:text="${playerOption.name}"></option>
             </select>
             <input type="submit" value="Select" class="button btn-sm">
         </form>
         <div class="row">
-            <form th:if="${playerChosen}" action="#" th:action="@{|/edit/player/${player.id}|}" th:object="${player}" method="post">
+            <form th:if="${playerChosen}" action="#" th:action="@{|/edit/player/${player.id}|}" th:object="${player}"
+                  method="post">
+                <div th:if="${#fields.hasErrors('*')}" class="alert alert-danger" role="alert">Name cannot be blank
+                </div>
                 <label for="playerName" class="">Name: </label>
-                <input type="text" class="form-control" id="playerName" th:field="*{name}"
-                       th:value="*{name}">
-                <label for="playerRating" class="">Name: </label>
+                <input type="text" class="form-control" id="playerName" th:field="*{name}" th:value="*{name}"
+                       th:errorclass="alert-danger">
+                <label for="playerRating" class="">Rating: </label>
                 <input type="text" class="form-control" id="playerRating" th:field="*{rating}"
                        th:value="*{rating}">
-                <label for="playerDescription" class="form-label">Description </label>
-                <textarea class="form-control" id="playerDescription" th:field="*{description}" th:text="*{description}" rows="5"></textarea>
+                <label for="playerDescription" class="form-label">Description: </label>
+                <textarea class="form-control" id="playerDescription" th:field="*{description}" th:text="*{description}"
+                          rows="5"></textarea>
 
                 <input type="submit" value="Select" class="button btn-sm">
             </form>

@@ -2,7 +2,8 @@ package be.thomasmore.chess.model;
 
 
 import javax.persistence.*;
-import java.util.List;
+import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotNull;
 
 @Entity
 public class Player {
@@ -10,6 +11,7 @@ public class Player {
     @SequenceGenerator(name = "player_generator",sequenceName = "player_seq",allocationSize = 1)
     @Id
     private int id;
+    @NotBlank
     private String name;
     private Integer rating;
     @Column(length = 1500)

@@ -10,6 +10,8 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 
+import java.security.Principal;
+
 
 @Controller
 public class HomeController {
@@ -19,7 +21,8 @@ public class HomeController {
     private VariantRepository variantRepository;
 
     @GetMapping({"/", "/home"})
-    public String home() {
+    public String home(Model mode, Principal principal) {
+        final String loginName = (principal != null) ? principal.getName() : "NOBODY";
         return "home";
     }
 

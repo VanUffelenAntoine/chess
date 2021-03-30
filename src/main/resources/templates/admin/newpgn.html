@@ -13,9 +13,8 @@
 <main class="container-fluid">
     <div class="row row-background">
         <form action="#" th:action="@{|/create/newgamepgn|}" method="post">
-
             <label for="pgn" class="form-label">Pgn file: </label>
-            <textarea class="form-control" id="pgn" name="pgn" rows="15"> </textarea>
+            <textarea class="form-control" id="pgn" name="pgn" rows="15"></textarea>
 
             <input type="submit" value="create" class="button btn-sm" th:href="@{/gamelist}">
         </form>

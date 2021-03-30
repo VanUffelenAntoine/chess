@@ -1,14 +1,17 @@
 package be.thomasmore.chess.model;
 
-import javax.persistence.Entity;
-import javax.persistence.Id;
-import javax.persistence.ManyToOne;
+import javax.persistence.*;
+import javax.validation.constraints.NotBlank;
 
 @Entity
 public class Variant {
+    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "variant_generator")
+    @SequenceGenerator(name = "variant_generator", sequenceName = "variant_seq", allocationSize = 1)
     @Id
     private int id;
+    @NotBlank
     private String Name;
+    @NotBlank
     private String move;
     @ManyToOne
     private Opening parentOpening;

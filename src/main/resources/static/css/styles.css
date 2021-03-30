@@ -8,8 +8,6 @@ body{
     text-align: center;
     background: inherit;
 }
-main{
-}
 .row-background{
     background: lightgrey;
     border-radius: 25px;
@@ -43,19 +41,10 @@ footer{
     float: right;
 }
 
-.list{
-    display:flex;
-    flex-flow: column wrap;
-    text-align: center;
-    align-content: center;
-    justify-content: center;
-}
 .checkmark {
     display: block;
 }
-.active{
 
-}
 .form-check-input:checked{
     background: black;
     border-color: black;

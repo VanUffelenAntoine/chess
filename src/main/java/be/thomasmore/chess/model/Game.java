@@ -3,6 +3,7 @@ package be.thomasmore.chess.model;
 import com.sun.istack.NotNull;
 
 import javax.persistence.*;
+import javax.validation.constraints.NotBlank;
 import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -20,7 +21,7 @@ public class Game {
     @NotNull
     @ManyToOne(fetch = FetchType.LAZY)
     private Player player2;
-    @NotNull
+    @NotBlank
     @Column(length = 2500)
     private String moves;
     @ManyToOne(fetch = FetchType.LAZY)

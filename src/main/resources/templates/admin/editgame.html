@@ -15,25 +15,48 @@
         <form action="#" th:action="@{|/edit/game|}" method="post">
             <label class="form-label" for="gameSelect">Select a game: </label>
             <select class="form-select" id="gameSelect" th:name="chosenGameId">
-                <option th:each="gameOption:${gameList}" th:value="${gameOption.id}" th:selected="${gameOption.id == game.id}" th:text="${gameOption.player1.name+' vs '+gameOption.player2.name}"></option>
+                <option th:each="gameOption:${gameList}" th:value="${gameOption.id}"
+                        th:selected="${gameOption.id == game.id}"
+                        th:text="${gameOption.player1.name+' vs '+gameOption.player2.name}"></option>
             </select>
             <input type="submit" value="Select" class="button btn-sm">
         </form>
         <div class="row">
-        <form th:if="${gameChosen}" action="#" th:action="@{|/edit/game/${game.id}|}" th:object="${game}" method="post">
-            <label class="form-label" for="player1Id">Player 1: </label>
-            <select class="form-select" id="player1Id" name="player1Id">
-                <option th:each="player:${players}" th:value="${player.id}" th:text="${player.name}" th:selected="${game.player1.id == player.id}"></option>
-            </select>
-            <label class="form-label" for="player2Id">Player 2: </label>
-            <select class="form-select" id="player2Id" name="player2Id">
-                <option th:each="player:${players}" th:value="${player.id}" th:text="${player.name}" th:selected="${game.player2.id == player.id}"></option>
-            </select>
-            <label for="moves" class="form-label">Moves: </label>
-            <textarea class="form-control" id="moves" th:field="*{moves}" th:text="*{moves}" rows="10"></textarea>
-
-            <input type="submit" value="save" class="button btn-sm">
-        </form>
+            <form th:if="${gameChosen}" action="#" th:action="@{|/edit/game/${game.id}|}" th:object="${game}"
+                  method="post">
+                <label class="form-label" for="player1Id">Player 1: </label>
+                <select class="form-select" id="player1Id" name="player1Id">
+                    <option th:each="player:${players}" th:value="${player.id}" th:text="${player.name}"
+                            th:selected="${game.player1.id == player.id}"></option>
+                </select>
+                <label class="form-label" for="player2Id">Player 2: </label>
+                <select class="form-select" id="player2Id" name="player2Id">
+                    <option th:each="player:${players}" th:value="${player.id}" th:text="${player.name}"
+                            th:selected="${game.player2.id == player.id}"></option>
+                </select>
+                <div th:if="${#fields.hasErrors('*')}" class="alert alert-danger" role="alert">Moves cannot be blank
+                </div>
+                <label for="moves" class="form-label">Moves: </label>
+                <textarea class="form-control" id="moves" th:field="*{moves}" th:text="*{moves}" rows="10"
+                          th:errorclass="alert-danger"></textarea>
+                <div th:unless="${game.openingUsed == null}">
+                    <label class="form-label" for="openingId">Opening: </label>
+                    <select class="form-select" id="openingId" name="openingId">
+                        <option th:each="opening:${openings}"
+                                th:value="${opening.id}" th:text="${opening.openingName}"
+                                th:selected="${opening.id == game.openingUsed.id}"></option>
+                    </select>
+                </div>
+                <div th:if="${game.openingUsed == null}">
+                    <label class="form-label" for="openingIdempty">Opening: </label>
+                    <select class="form-select" id="openingIdempty" name="openingId">
+                        <option th:each="opening:${openings}" th:value="${opening.id}"
+                                th:text="${opening.openingName}"></option>
+                        <option th:value="null" th:text="'None selected'" selected></option>
+                    </select>
+                </div>
+                <input type="submit" value="save" class="button btn-sm">
+            </form>
         </div>
     </div>
 
